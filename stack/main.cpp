@@ -156,6 +156,15 @@ int main()
         cout << "\nПродолжить? 1 - да, 0 - нет: ";
         cin >> flag;
     }
+    
+    int findEl;
+    cout << "\nВведите значение элемента: ";
+    cin >> findEl;
+    
+    if (iStack.find(findEl))
+        cout << "Элемент найден!\n";
+    else
+        cout << "Элемент отсутствует в стеке!";
 
     return 0;
 }
