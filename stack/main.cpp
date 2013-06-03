@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-//2013 
-=======
 ﻿/*2013*/
 
->>>>>>> 46fcd51b37ce424c1d58b5a12a06fbd308e1b0e7
 #include <iostream>
 // #include <stack>
 
