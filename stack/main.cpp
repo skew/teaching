@@ -1,3 +1,5 @@
+﻿/*2013*/
+
 #include <iostream>
 // #include <stack>
 
@@ -170,6 +172,7 @@ int main()
         cout << "Элемент найден!\n";
     else
         cout << "Элемент отсутствует в стеке!";
+
 
     return 0;
 }
