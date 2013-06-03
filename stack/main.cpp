@@ -69,7 +69,7 @@ int stack::num()
     return (topSt + 1);
 }
 
-bool stack::find (int el)
+bool stack::find(int el)
 {
     for (int i = 0; i <= topSt; i++)
         if (st[i] == el)
