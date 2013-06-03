@@ -12,7 +12,7 @@ class stack
         int top(); // возвращает значение верхнего элемента
         int num(); // возвращает кол-во элементов
         void print(); // выводит стек на экран
-        bool find(int el); // возвращает true, если элемент найден, и false, в противном случае
+        bool find(int el); // возвращает true, если элемент найден, и false в противном случае
     private:
         int topSt, numSt;
         int *st;
