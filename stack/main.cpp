@@ -71,11 +71,16 @@ int stack::num()
 
 bool stack::find(int el)
 {
+    bool k = 0;
     for (int i = 0; i <= topSt; i++)
+    {
         if (st[i] == el)
-            return true;
-        else 
-            return false;
+            k = 1;
+    }
+    if (k)
+        return true;
+    else 
+        return false;
 }
 
 void stack::print()
