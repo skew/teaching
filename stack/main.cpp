@@ -81,7 +81,7 @@ bool stack::find(int el)
     }
     if (k)
         return true;
-    else 
+    else
         return false;
 }
 
@@ -120,12 +120,12 @@ int main()
     }
 
     // создаём стек на базе массива
-    stack iStack(num);
+    stack *iStack = new stack(num);
 
     for (int i = 0; i < num; i++)
-        iStack.push(p[i]);
+        iStack->push(p[i]);
 
-    iStack.print();
+    iStack->print();
 
     int newEl;
     bool flag;
@@ -140,35 +140,35 @@ int main()
 
         if (flag)
         {
-            if (iStack.num() == num)
+            if (iStack->num() == num)
             {
                 cout << "\nСтек заполнен! Удалить элемент? 1 - да, 0 - нет: ";
                 cin >> flag;
                 if (flag)
-                    iStack.pop();
+                    iStack->pop();
             }
             else
             {
                 cout << "Введите значение: ";
                 cin >> newEl;
-                iStack.push(newEl);
+                iStack->push(newEl);
             }
         }
         else
-            iStack.pop();
+            iStack->pop();
 
-        if (iStack.num() != 0)
-            iStack.print();
+        if (iStack->num() != 0)
+            iStack->print();
 
         cout << "\nПродолжить? 1 - да, 0 - нет: ";
         cin >> flag;
     }
-    
+
     int findEl;
     cout << "\nВведите значение элемента: ";
     cin >> findEl;
-    
-    if (iStack.find(findEl))
+
+    if (iStack->find(findEl))
         cout << "Элемент найден!\n";
     else
         cout << "Элемент отсутствует в стеке!";
