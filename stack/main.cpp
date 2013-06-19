@@ -8,91 +8,101 @@ using namespace std;
 class stack
 {
     public:
-        stack(int num);
+        stack();
         void push(int el); //помещает элемент в стек
         int pop(); // возвращает значение верхнего элемента и удаляет его
         int top(); // возвращает значение верхнего элемента
-        int num(); // возвращает кол-во элементов
         void print(); // выводит стек на экран
         bool find(int el); // возвращает true, если элемент найден, и false в противном случае
     private:
-        int topSt, numSt;
-        int *st;
+        int *topSt, num;
 };
 
-stack::stack(int num)
+stack::stack()
 {
-    numSt = num;
-    st = new int[numSt];
-    topSt = -1;
+   num = 0;
 }
 
 void stack::push(int el)
 {
-    if (topSt == numSt - 1)
-        cout << "Стек заполнен!\n";
-    else
-    {
-        st[topSt + 1] = el;
-        topSt++;
-    }
+    topSt = topSt + 1;
+    topSt = new int (el);
+    num++;
 }
 
 int stack::top()
 {
-    if (topSt <= -1)
+    int result = *topSt;
+
+    if (num <= 0)
     {
-        cout << "Стек пуст!\n";
-        topSt = -1;
-        return (0);
+        cout << "\nСтек пуст!\n";
+        result = -1;
     }
-    else
-        return (st[topSt]);
+
+    return(result);
 }
 
 int stack::pop()
 {
-    int k = top();
-    st[topSt] = 0;
-    topSt--;
-    if (topSt <= - 1)
+    int result = 0;
+
+    num--;
+
+    if (num <= 0)
     {
-        if (topSt == -1)
+        if (topSt == 0)
             cout << "\nCтек пуст!\n";
-        topSt = -1;
-        return (0);
+        num = 0;
     }
     else
-        return (k);
-}
+    {
+        result = top();
+        *topSt = 0;
+        topSt = topSt - 4;
+    }
 
-int stack::num()
-{
-    return (topSt + 1);
+    return (result);
 }
 
 bool stack::find(int el)
 {
-    bool k = 0;
-    for (int i = 0; i <= topSt; i++)
+    int h = 0;
+    bool result = false;
+    for (int i = 0; i < num; i++)
     {
-        if (st[i] == el)
-            k = 1;
+        if (*topSt == el)
+            result = true;
+
+        topSt = topSt - 4;
+        h++;
     }
-    if (k)
-        return true;
-    else
-        return false;
+
+    topSt = topSt + 4 * h;
+
+    return (result);
 }
 
 void stack::print()
 {
-    cout << "\nСтек:\n";
-    for (int i = topSt; i >= 0; i--)
-        cout << "\t" << st[i] << endl;
+    if (num == 0)
+        cout << "\nСтек пуст!\n";
+    else
+    {
+        cout << "\nСтек:\n";
+        int k = 0;
 
-    cout << "Кол-во элементов в стеке: " << topSt + 1 << endl;
-    cout << "Кол-во свободных мест: " << (numSt - 1) - topSt << endl;
+        for (int i = num ; i > 0; i--)
+        {
+            cout << *topSt << "\t// " << topSt << endl;
+            topSt = topSt - 4;
+            k = k + 1;
+        }
+        topSt = topSt + 4 * k;
+
+        cout << "top: " << *topSt << "\t// " << topSt << "\n";
+    }
+
 }
 
 int main()
@@ -120,7 +130,8 @@ int main()
     }
 
     // создаём стек на базе массива
-    stack *iStack = new stack(num);
+    stack St;
+    stack *iStack = &St;
 
     for (int i = 0; i < num; i++)
         iStack->push(p[i]);
@@ -140,32 +151,23 @@ int main()
 
         if (flag)
         {
-            if (iStack->num() == num)
-            {
-                cout << "\nСтек заполнен! Удалить элемент? 1 - да, 0 - нет: ";
-                cin >> flag;
-                if (flag)
-                    iStack->pop();
-            }
-            else
-            {
-                cout << "Введите значение: ";
-                cin >> newEl;
-                iStack->push(newEl);
-            }
+            cout << "Введите значение: ";
+            cin >> newEl;
+            iStack->push(newEl);
         }
         else
             iStack->pop();
 
-        if (iStack->num() != 0)
-            iStack->print();
+        iStack->print();
 
         cout << "\nПродолжить? 1 - да, 0 - нет: ";
         cin >> flag;
     }
 
+    cout << "\nИщем элемент:";
+
     int findEl;
-    cout << "\nВведите значение элемента: ";
+    cout << "\nВведите значение: ";
     cin >> findEl;
 
     if (iStack->find(findEl))
@@ -173,6 +175,6 @@ int main()
     else
         cout << "Элемент отсутствует в стеке!";
 
-
     return 0;
 }
+
