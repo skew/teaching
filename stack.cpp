@@ -58,8 +58,8 @@ int Stack::size(){
 
 void Stack::push(int _new){
 	Elem *tmp = new Elem;
-	(*tmp).data = _new;
-	(*tmp).pointer = head;
+	tmp->data = _new;
+	tmp->pointer = head;
 	head = tmp;
 	length++;
 }
