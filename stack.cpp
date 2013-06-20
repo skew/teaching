@@ -3,13 +3,12 @@
 #include <cstdlib>
 using namespace std;
 
-class Elem{
-	public:
-		int data;
-		Elem *pointer;
-};
-
 class Stack{
+	class Elem{
+		public:
+			int data;
+			Elem *pointer;
+	};
 	Elem *head;
 	int length;
 	public:
