@@ -4,7 +4,7 @@
 using namespace std;
 
 class Elem{
-  public:
+	public:
 		int data;
 		Elem *pointer;
 };
@@ -14,13 +14,14 @@ class Stack{
 	int length;
 	public:
 		Stack();
-		void push(int push_me);
+		void push(int);
 		int pop();
 		int top();
 		int size();
-		bool isEmpty();
+		bool find(int);
 };
 
+//исключения при работе со стеком
 struct StackException
 {
     string msg;
@@ -32,11 +33,23 @@ struct StackException
 int main(){
 	int a;
 	Stack st;
+	if(st.find(5)) cout<<"5 is found in the stack"<<"."<<endl;
+	else cout<<"No 5 in the stack"<<"."<<endl;
+	if(st.find(4)) cout<<"4 is found in the stack"<<"."<<endl;
+	else cout<<"No 4 in the stack"<<"."<<endl;
+	cout<<"Top of the stack - "<<st.top()<<"."<<endl;
 	st.push(0);
 	st.push(1);
 	st.push(2);
 	st.push(3);
 	st.push(4);
+	if(st.find(5)) cout<<"5 is found in the stack"<<"."<<endl;
+	else cout<<"No 5 in the stack"<<"."<<endl;
+	if(st.find(4)) cout<<"4 is found in the stack"<<"."<<endl;
+	else cout<<"No 4 in the stack"<<"."<<endl;
+	st.push(5);
+	if(st.find(5)) cout<<"5 is found in the stack"<<"."<<endl;
+	else cout<<"No 5 in the stack"<<"."<<endl;
 	cout<<"Top of the stack - "<<st.top()<<"."<<endl;
 	cout<<"Size of the stack - "<<st.size()<<"."<<endl;
 	cout<<"Make pop. Extracted - "<<st.pop()<<"."<<endl;
@@ -44,18 +57,22 @@ int main(){
 	cout<<"Make pop. Extracted - "<<st.pop()<<"."<<endl;
 	cout<<"New top of the stack - "<<st.top()<<"."<<endl;
 	cin>>a;
+	return 0;
 }
 
+//конструктор
 Stack::Stack(){
 	length = 0;
 	head = NULL;
 	cout<<"New stack was created."<<endl;
 }
 
+//метод возвращает размер
 int Stack::size(){
 	return length;
 }
 
+//метод кладет новый элемент
 void Stack::push(int _new){
 	Elem *tmp = new Elem;
 	tmp->data = _new;
@@ -64,6 +81,7 @@ void Stack::push(int _new){
 	length++;
 }
 
+//метод извлекает элемент, если стек не пуст. Иначе исключение
 int Stack::pop(){
 	try{
 		if(length == 0){
@@ -83,6 +101,33 @@ int Stack::pop(){
 	}	
 }
 
+//метод возвращает то, что в вершине, если стек не пуст. Иначе исключение
 int Stack::top(){
-	return head->data;    
+	try{
+		if(length == 0){
+			throw StackException("Stack is empty. Fill it fisrtly!");
+		}
+		else if(length > 0){
+			int res = head->data;
+			return res;
+		}
+	}
+	catch (StackException& e){
+	    cout<<e.msg << '\n';
+		return 0;
+	}
+}
+
+//поиск элемента
+bool Stack::find(int find_me){
+	if(length == 0) return false;
+	Elem *finder = new Elem;
+	finder = head;
+	while(finder->pointer){
+		if(finder->data == find_me)
+			return true;
+		else
+			finder = finder->pointer;
+	}
+	return false;
 }
