@@ -3,23 +3,24 @@
 #include <cstdlib>
 using namespace std;
 
-class Stack{
-	class Elem{
+namespace stack{
+	class Stack{
+		class Elem{
+			public:
+				int data;
+				Elem *pointer;
+		};
+		Elem *head;
+		int length;
 		public:
-			int data;
-			Elem *pointer;
+			Stack();
+			void push(int);
+			int pop();
+			int top();
+			int size();
+			bool find(int);
 	};
-	Elem *head;
-	int length;
-	public:
-		Stack();
-		void push(int);
-		int pop();
-		int top();
-		int size();
-		bool find(int);
-};
-
+}
 //исключения при работе со стеком
 struct StackException
 {
@@ -31,7 +32,7 @@ struct StackException
 
 int main(){
 	int a;
-	Stack st;
+	stack::Stack st;
 	if(st.find(5)) cout<<"5 is found in the stack"<<"."<<endl;
 	else cout<<"No 5 in the stack"<<"."<<endl;
 	if(st.find(4)) cout<<"4 is found in the stack"<<"."<<endl;
@@ -60,19 +61,19 @@ int main(){
 }
 
 //конструктор
-Stack::Stack(){
+stack::Stack::Stack(){
 	length = 0;
 	head = NULL;
 	cout<<"New stack was created."<<endl;
 }
 
 //метод возвращает размер
-int Stack::size(){
+int stack::Stack::size(){
 	return length;
 }
 
 //метод кладет новый элемент
-void Stack::push(int _new){
+void stack::Stack::push(int _new){
 	Elem *tmp = new Elem;
 	tmp->data = _new;
 	tmp->pointer = head;
@@ -81,7 +82,7 @@ void Stack::push(int _new){
 }
 
 //метод извлекает элемент, если стек не пуст. Иначе исключение
-int Stack::pop(){
+int stack::Stack::pop(){
 	try{
 		if(length == 0){
 			throw StackException("Stack is empty. Fill it fisrtly!");
@@ -101,7 +102,7 @@ int Stack::pop(){
 }
 
 //метод возвращает то, что в вершине, если стек не пуст. Иначе исключение
-int Stack::top(){
+int stack::Stack::top(){
 	try{
 		if(length == 0){
 			throw StackException("Stack is empty. Fill it fisrtly!");
@@ -118,7 +119,7 @@ int Stack::top(){
 }
 
 //поиск элемента
-bool Stack::find(int find_me){
+bool stack::Stack::find(int find_me){
 	if(length == 0) return false;
 	Elem *finder = new Elem;
 	finder = head;
